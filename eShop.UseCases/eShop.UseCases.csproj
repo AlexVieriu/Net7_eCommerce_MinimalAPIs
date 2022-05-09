@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eShop.CoreBusiness\eShop.CoreBusiness.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AdminPortal\" />
+    <Folder Include="CustomerPortal\Plugins\Web\" />
+    <Folder Include="CustomerPortal\Plugins\StateStore\" />
+    <Folder Include="CustomerPortal\SearchProductScreen\" />
+  </ItemGroup>
+
+</Project>

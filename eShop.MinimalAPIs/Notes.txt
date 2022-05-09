@@ -1,0 +1,29 @@
+﻿Tutorial 1: https://www.youtube.com/watch?v=f2IdQqpjR0c&ab_channel=CodewithJulian
+Tutorial 2: https://www.youtube.com/watch?v=4ORO-KOufeU
+Tutorial 1: https://www.youtube.com/watch?v=HDinmuGYaIA
+Tutorial 1: https://www.youtube.com/watch?v=uoVeZzKl6WQ
+
+Register:
+{
+  "userId": 0,
+  "userName": "Vieriu Alexandru",
+  "password": "portocala21@!",
+  "userRole": "Administrator"
+}
+
+Order:
+
+{
+  "orderId": 16,
+  "datePlaced": "2022-04-11T15:10:24.85",
+  "dateProcessing": null,
+  "dateProcessed": "2022-04-11T15:10:00",
+  "customerName": "Vieriu Alexandru",
+  "customerAddress": "Bradului nr.11",
+  "customerCity": "Manastirea Doamnei",
+  "customerStateProvince": "Romania",
+  "customerCountry": "Romania",
+  "adminUser": "admin",
+  "uniqueId": "523a77d7-e2ff-42e9-8ef6-982623c8c6c3",
+  "lineItems": []
+}
