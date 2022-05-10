@@ -1,9 +1,20 @@
 ﻿@page "/"
 
+@inject ISearchProductUseCase
+
 @attribute [Authorize]
 
-<h3>SearchProductsPage</h3>
+<h3 class="mt-5">SearchProductsPage</h3>
 
-@code {
+<SearchBarComp/>
 
+
+
+@code {    
+    List<Product> Products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Products = await 
+    }
 }

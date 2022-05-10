@@ -1,5 +1,5 @@
 ﻿namespace eShop.UseCases.Web.Infrastructure.Repositories;
-public interface IBaseRepository<T> where T: class
+public interface IBaseRepositoryUI<T> where T: class
 {
     Task<List<T>> GetAll(string url);
     Task<T> GetbyId(string url, int id);
