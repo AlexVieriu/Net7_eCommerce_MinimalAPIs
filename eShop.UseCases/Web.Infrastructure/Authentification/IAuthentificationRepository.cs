@@ -3,6 +3,6 @@
 public interface IAuthentificationRepository
 {
     Task<bool> Register(User user);
-    Task<bool> Login(string userLogin, string userPass);
+    Task<bool> Login(string userName, string password);
     Task Logout();
 }

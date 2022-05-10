@@ -18,6 +18,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     };
                 });
 
+
 builder.Services.AddAuthorization(options => {
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
@@ -49,6 +50,7 @@ builder.Services.AddSwaggerGen(x => {
         }
     });
 });
+
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAll", b => b.AllowAnyOrigin()
                                         .AllowAnyHeader()
@@ -68,7 +70,7 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-//Minimal APIs 
+////Minimal APIs 
 app.ConfigureApi();
 
 #region Minimal Apis
@@ -76,7 +78,8 @@ app.ConfigureApi();
 //// Minimal APIs - Original
 //// Product
 //#region Product
-//app.MapGet("/product/{id:int}", async (int id, IProductRepository productRepo) => {
+//app.MapGet("/product/{id:int}", async (int id, IProductRepository productRepo) =>
+//{
 
 //    try
 //    {
@@ -90,7 +93,8 @@ app.ConfigureApi();
 //    }
 //}).Produces<Product>();
 
-//app.MapGet("/products", async ([FromQuery] string filter, IProductRepository productRepo) => {
+//app.MapGet("/products", async ([FromQuery] string filter, IProductRepository productRepo) =>
+//{
 //    try
 //    {
 //        var products = await productRepo.GetProductsAsync(filter);
@@ -106,7 +110,8 @@ app.ConfigureApi();
 
 ////Order
 //#region Order
-//app.MapPost("/order/create", async ([FromBody] Order order, IOrderRepository orderRepo) => {
+//app.MapPost("/order/create", async ([FromBody] Order order, IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        var response = await orderRepo.CreateOrderAsync(order);
@@ -120,7 +125,8 @@ app.ConfigureApi();
 //}).Produces<int>();
 
 
-//app.MapGet("/order/lineItems/{orderId:int}", async (int orderId, IOrderRepository orderRepo) => {
+//app.MapGet("/order/lineItems/{orderId:int}", async (int orderId, IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        var lineItems = await orderRepo.GetLineItemsByOrderIdAsync(orderId);
@@ -134,7 +140,8 @@ app.ConfigureApi();
 //}).Produces<List<OrderLineItem>>();
 
 
-//app.MapGet("/order/{orderId:int}", async (int orderId, IOrderRepository orderRepo) => {
+//app.MapGet("/order/{orderId:int}", async (int orderId, IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        var order = await orderRepo.GetOrderByIdAsync(orderId);
@@ -148,7 +155,8 @@ app.ConfigureApi();
 //}).Produces<Order>();
 
 
-//app.MapGet("/order/{uniqueId}", async (string uniqueId, IOrderRepository orderRepo) => {
+//app.MapGet("/order/{uniqueId}", async (string uniqueId, IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        var order = await orderRepo.GetOrderByUniqueIdAsync(uniqueId);
@@ -162,7 +170,8 @@ app.ConfigureApi();
 //}).Produces<Order>();
 
 
-//app.MapGet("/orders", async (IOrderRepository orderRepo) => {
+//app.MapGet("/orders", async (IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        var orders = await orderRepo.GetOrdersAsync();
@@ -176,7 +185,8 @@ app.ConfigureApi();
 //}).Produces<List<Order>>();
 
 
-//app.MapGet("/ordersOutStanding", async (IOrderRepository orderRepo) => {
+//app.MapGet("/ordersOutStanding", async (IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        var orders = await orderRepo.GetOutStrandingOrdersAsync();
@@ -190,7 +200,8 @@ app.ConfigureApi();
 //}).Produces<List<Order>>();
 
 
-//app.MapGet("/ordersProcessed", async (IOrderRepository orderRepo) => {
+//app.MapGet("/ordersProcessed", async (IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        var orders = await orderRepo.GetProcessedOrdersAsync();
@@ -204,7 +215,8 @@ app.ConfigureApi();
 //}).Produces<List<Order>>();
 
 
-//app.MapPut("/orderProcessed", async (Order order, IOrderRepository orderRepo) => {
+//app.MapPut("/orderProcessed", async (Order order, IOrderRepository orderRepo) =>
+//{
 //    try
 //    {
 //        await orderRepo.UpdateOrderProcessedAsync(order.AdminUser, order.DateProcessed, order.OrderId);
@@ -218,7 +230,8 @@ app.ConfigureApi();
 
 
 //// Authenthification
-//app.MapPost("/login", async ([FromQuery] string userName, [FromQuery] string pwd, IUserRepository userRepo) => {
+//app.MapPost("/login", async ([FromQuery] string userName, [FromQuery] string pwd, IUserRepository userRepo) =>
+//{
 //    try
 //    {
 //        var user = await userRepo.LoginUser(userName, pwd);
@@ -236,7 +249,8 @@ app.ConfigureApi();
 //}).AllowAnonymous();
 
 //app.MapPost("/register",
-//    [Authorize(Roles = "Administrator")] async ([FromBody] User? userRegister, IUserRepository userRepo) => {
+//    [Authorize(Roles = "Administrator")] async ([FromBody] User? userRegister, IUserRepository userRepo) =>
+//    {
 //        try
 //        {
 //            var isRegistered = await userRepo.RegisterUser(userRegister);

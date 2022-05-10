@@ -3,10 +3,16 @@
 public class ApiAuthenticationStateProvider : AuthenticationStateProvider
 {
     private readonly JwtSecurityTokenHandler _jwt;
+    private readonly ILocalStorageService _localStorage;
+    private readonly HttpClient _httpClient;
 
-    public ApiAuthenticationStateProvider(JwtSecurityTokenHandler jwt)
+    public ApiAuthenticationStateProvider(JwtSecurityTokenHandler jwt,
+                                          ILocalStorageService localStorage,
+                                          HttpClient httpClient)
     {
         _jwt = jwt;
+        _localStorage = localStorage;
+        _httpClient = httpClient;
     }
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -14,12 +20,22 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
         var user = new ClaimsPrincipal(new ClaimsIdentity());
         try
         {
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJWaWVyaXUgQWxleGFuZHJ1IiwianRpIjoiMTA1YjA1OGItNWUwNC00MjYyLWE1ZWUtNjI2M2FmNzk1MTEzIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsImV4cCI6MTY1MjA5NTU1NSwiaXNzIjoiY2xlYW5hcmhpdGVjdHVyZS5taW5pbWFsQXBpc0BnbWFpbC5jb20iLCJhdWQiOiJjbGVhbmFyaGl0ZWN0dXJlLm1pbmltYWxBcGlzQGdtYWlsLmNvbSJ9._8jwlusYZp9Ybp1PwsibXAAOQpRMEDPMw4uNSB9ahCE";
+            var token = await _localStorage.GetItemAsync<string>(Token.TokenName);
             if (string.IsNullOrWhiteSpace(token))
-                new AuthenticationState(user);
+                return new AuthenticationState(user);
 
             var tokenContent = _jwt.ReadJwtToken(token);
-            user = new ClaimsPrincipal(new ClaimsIdentity(tokenContent.Claims, "jwt"));
+            var expiry = tokenContent.ValidTo;
+            
+            if(expiry < DateTime.UtcNow)
+            {
+                await _localStorage.RemoveItemAsync(Token.TokenName);
+                return new AuthenticationState(user);
+            }
+
+            var claims = GetClaims(tokenContent);
+
+            user = new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
 
             return await Task.FromResult(new AuthenticationState(user));
         }
@@ -31,9 +47,11 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
 
     public async Task LoggedIn()
     {
-        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJWaWVyaXUgQWxleGFuZHJ1IiwianRpIjoiMTA1YjA1OGItNWUwNC00MjYyLWE1ZWUtNjI2M2FmNzk1MTEzIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsImV4cCI6MTY1MjA5NTU1NSwiaXNzIjoiY2xlYW5hcmhpdGVjdHVyZS5taW5pbWFsQXBpc0BnbWFpbC5jb20iLCJhdWQiOiJjbGVhbmFyaGl0ZWN0dXJlLm1pbmltYWxBcGlzQGdtYWlsLmNvbSJ9._8jwlusYZp9Ybp1PwsibXAAOQpRMEDPMw4uNSB9ahCE";
-        var user = GetClaimsPrincipal(token);
-        var authState = Task.FromResult(new AuthenticationState(user));
+        var token = await _localStorage.GetItemAsync<string>(Token.TokenName);
+        var tokenContent = _jwt.ReadJwtToken(token);
+        var claims = GetClaims(tokenContent);
+        var user = new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
+        var authState  = Task.FromResult(new AuthenticationState(user));
         NotifyAuthenticationStateChanged(authState);
     }
 
@@ -44,11 +62,11 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(authState);
     }
 
-    private ClaimsPrincipal GetClaimsPrincipal(string token)
+    private List<Claim> GetClaims(JwtSecurityToken token)
     {
-        var tokenContent = _jwt.ReadJwtToken(token);
-        var user = new ClaimsPrincipal(new ClaimsIdentity(tokenContent.Claims, "jwt"));
+        var claims = token.Claims.ToList();
+        claims.Add(new Claim(ClaimTypes.Name, token.Subject));
 
-        return user;
+        return claims;
     }
 }

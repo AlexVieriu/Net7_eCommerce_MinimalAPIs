@@ -3,37 +3,40 @@
 @inject IAuthentificationRepository authRepo
 @inject NavigationManager navManager
 
-<h3>RegisterPage</h3>
+<h3 class="my-5">Register Page</h3>
 
-<EditForm Model="RegisterModel" OnValidSubmit="HandleRegister">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<div class="card p-4 d-flex justify-content-center">
+    <EditForm Model="RegisterModel" OnValidSubmit="HandleRegister">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div>
-        <label>User Name</label>
-        <InputText class="form-control" @bind-Value="RegisterModel.UserName" />
-    </div>
+        <div class="pb-4">
+            <label class="fw-bold">User Name</label>
+            <InputText class="form-control" @bind-Value="RegisterModel.UserName" />
+        </div>
 
-    <div>
-        <label>Password</label>
-        <InputText class="form-control" @bind-Value="RegisterModel.Password" type="password" />
-    </div>
+        <div class="pb-4">
+            <label class="fw-bold">Password</label>
+            <InputText class="form-control" @bind-Value="RegisterModel.Password" type="password" />
+        </div>
 
-    <div>
-        <label>Password</label>
-        <InputSelect class="form-control" @bind-Value="RegisterModel.UserRole">
-            @foreach(var role in Enum.GetValues(typeof(Roles)))
-            {
-                <option value="@role">@role</option>
-            }
-        </InputSelect>
-    </div>
-    <br />
-    <button class="btn btn-primary" type="submit" >
-        Register User
-    </button>
+        <div class="pb-4">
+            <label class="fw-bold">User Role</label>
+            <InputSelect class="form-control" @bind-Value="RegisterModel.UserRole">
+                 <option value="">-- Select a role --</option>
+                @foreach (var role in Enum.GetValues(typeof(Roles)))
+                {
+                    <option value="@role">@role</option>
+                }
+            </InputSelect>
+        </div>
+        <br />
+        <button class="btn btn-primary" type="submit">
+            Register User
+        </button>
+    </EditForm>
+</div>
 
-</EditForm>
 
 
 @code {
@@ -43,6 +46,6 @@
     {
         var isRegister = await authRepo.Register(RegisterModel);
         if (isRegister)
-            navManager.NavigateTo("/");
+            navManager.NavigateTo("/login");
     }
 }

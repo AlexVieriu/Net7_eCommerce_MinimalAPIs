@@ -9,7 +9,9 @@
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0-preview.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="7.0.0-preview.3.22175.4" />
   </ItemGroup>
 
   <ItemGroup>
