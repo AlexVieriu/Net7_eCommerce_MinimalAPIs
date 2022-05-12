@@ -1,29 +1,32 @@
 ﻿namespace eShop.Web.Infrastructure.RepositoriesUI;
 
-public class ProductRepositoryUI : IProductRepositoryUI
+public class ProductRepositoryUI : BaseRepositoryUI<Product>, IProductRepositoryUI
 {
-    public Task<bool> Create(string url, Product obj)
+    private readonly HttpClient _client;
+    private readonly ILocalStorageService _localStorage;
+
+    public ProductRepositoryUI(HttpClient client, ILocalStorageService localStorage)
+        : base(client, localStorage)
     {
-        throw new NotImplementedException();
+        _client = client;
+        _localStorage = localStorage;
     }
 
-    public Task<bool> Delete(string url, int id)
+    public async Task<List<Product>> GetProductsWithFilter(string url, string? filter)
     {
-        throw new NotImplementedException();
+        _client.DefaultRequestHeaders.Authorization = await HeaderValue();
+
+        var products = await _client.GetFromJsonAsync<List<Product>>($"{url}?filter={filter}");
+
+        if (products == null)
+            return new List<Product>();
+
+        return products;
     }
 
-    public Task<List<Product>> GetAll(string url)
+    private async Task<AuthenticationHeaderValue> HeaderValue()
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Product> GetbyId(string url, int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> Update(string url, Product obj, int id)
-    {
-        throw new NotImplementedException();
+        var bearerToken = await _localStorage.GetItemAsync<string>(Token.TokenName);
+        return new AuthenticationHeaderValue("bearer", bearerToken);
     }
 }

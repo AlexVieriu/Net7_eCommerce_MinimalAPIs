@@ -23,7 +23,7 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    public async Task<IEnumerable<Product>> GetProductsAsync(string filter)
+    public async Task<IEnumerable<Product>> GetProductsAsync(string? filter)
     {
         try
         {

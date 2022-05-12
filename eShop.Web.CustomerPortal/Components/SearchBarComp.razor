@@ -1,5 +1,20 @@
-﻿<h3>SearchBarComp</h3>
+﻿<div class="row g-3 align-items-center">
+    <div class="col-auto">
+        <label class="col-form-label">Search</label>
+    </div>
+    <div class="col-auto">
+        <input class="form-control" @onchange="OnFilterProducts" >
+    </div>
+</div>
+
 
 @code {
 
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+
+    private async Task OnFilterProducts(ChangeEventArgs filter)
+    {        
+        await OnSearch.InvokeAsync(filter.Value.ToString());
+    }
 }

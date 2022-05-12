@@ -16,7 +16,7 @@ public static class Api
 
         // Product
         app.MapGet("/product/{productId:int}", GetProductByIdAsync);
-        app.MapGet("/products", GetProductsAsync);
+        app.MapGet("/product", GetProductsAsync);
 
         // User
         app.MapPost("/login", Login);
@@ -130,7 +130,7 @@ public static class Api
         }
     }
 
-    public static async Task<IResult> GetProductsAsync(string? filter, IProductRepository productRepo)
+    public static async Task<IResult> GetProductsAsync([FromQuery]string? filter, IProductRepository productRepo)
     {
         try
         {

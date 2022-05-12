@@ -1,20 +1,35 @@
 ﻿@page "/"
 
-@inject ISearchProductUseCase
+@inject ISearchProductUseCase searchProduct
 
 @attribute [Authorize]
 
-<h3 class="mt-5">SearchProductsPage</h3>
+<h3 class="my-5">SearchProductsPage</h3>
 
-<SearchBarComp/>
+<SearchBarComp OnSearch="OnFilteringProducts" />
+
+<div class="row">
+    @if (Products != null & Products?.Count > 0)
+    {
+        foreach (var product in Products)
+        {
+            <ProductItemComp Product="product" />
+        }
+    }
+</div>
 
 
-
-@code {    
-    List<Product> Products;
+@code {
+    List<Product> Products = new();
+    string filter = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        Products = await 
+        Products = await searchProduct.GetProducts(Endpoints.ProductUrl);
+    }
+
+    private void OnFilteringProducts(string filter)
+    {
+        this.filter = filter;
     }
 }

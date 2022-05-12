@@ -1,0 +1,19 @@
+﻿@page "/product/{id:int}"
+
+@inject IViewProductUseCase viewProduct
+
+<h3>View Product</h3>
+
+
+
+@code {
+    Product Product = new();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Product = await viewProduct.GetProduct();
+    }
+}

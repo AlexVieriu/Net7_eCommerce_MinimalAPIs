@@ -1,29 +1,12 @@
 ﻿namespace eShop.Web.Infrastructure.RepositoriesUI;
 
-public class OrderRepositoryUI : IOrderRepositoryUI
+public class OrderRepositoryUI : BaseRepositoryUI<Order>, IOrderRepositoryUI
 {
-    public Task<bool> Create(string url, Order obj)
+    public OrderRepositoryUI(HttpClient client, ILocalStorageService localStorage)
+        : base(client, localStorage)
     {
-        throw new NotImplementedException();
+
     }
 
-    public Task<bool> Delete(string url, int id)
-    {
-        throw new NotImplementedException();
-    }
 
-    public Task<List<Order>> GetAll(string url)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Order> GetbyId(string url, int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> Update(string url, Order obj, int id)
-    {
-        throw new NotImplementedException();
-    }
 }

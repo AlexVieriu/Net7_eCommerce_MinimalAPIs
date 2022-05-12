@@ -16,7 +16,7 @@ public class JWT
                 issuer: config["JWT:Issuer"],
                 audience: config["JWT:Audience"],
                 claims: claimsUser,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: credentials
             );
 

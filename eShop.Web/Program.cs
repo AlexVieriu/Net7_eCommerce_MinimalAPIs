@@ -15,4 +15,7 @@ builder.Services.AddAuthorizationCore();
 // DI
 builder.Services.AddScoped<IAuthentificationRepository, AuthenticationRepository>();
 
+builder.Services.AddTransient<IProductRepositoryUI, ProductRepositoryUI>();
+builder.Services.AddTransient<ISearchProductUseCase, SearchProductUseCase>();
+
 await builder.Build().RunAsync();

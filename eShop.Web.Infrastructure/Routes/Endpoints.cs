@@ -6,4 +6,10 @@ public static class Endpoints
     // User
     public static string LoginUrl = $"{BaseUrl}/login";
     public static string RegisterUrl = $"{BaseUrl}/register";
+
+    // Product
+    public static string ProductUrl = $"{BaseUrl}/product";
+
+
+    // Order
 }
