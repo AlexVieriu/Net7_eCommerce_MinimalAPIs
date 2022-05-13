@@ -15,7 +15,7 @@ public static class Api
         app.MapPut("/orders/processed", UpdateOrderProcessedAsync);
 
         // Product
-        app.MapGet("/product/{productId:int}", GetProductByIdAsync);
+        app.MapGet("/product/{Id:int}", GetProductByIdAsync);
         app.MapGet("/product", GetProductsAsync);
 
         // User
@@ -118,11 +118,11 @@ public static class Api
     }
 
     // Product
-    public static async Task<IResult> GetProductByIdAsync(int productId, IProductRepository productRepo)
+    public static async Task<IResult> GetProductByIdAsync(int id, IProductRepository productRepo)
     {
         try
         {
-            return Results.Ok(await productRepo.GetProductByIdAsync(productId));
+            return Results.Ok(await productRepo.GetProductByIdAsync(id));
         }
         catch (Exception ex)
         {

@@ -1,10 +1,35 @@
 ﻿@page "/product/{id:int}"
 
 @inject IViewProductUseCase viewProduct
+@inject IAddProductToCartUseCase addProductToCart
+@inject NavigationManager navManager
 
-<h3>View Product</h3>
+<h3 class="my-4">View Product</h3>
 
+<div class="card p-4 mt-4 col-6 row">
+    <div class="row">
+        <div class="col">
+            <img src="@Product.ImageLink" class="card-img-top" alt="baaaaiii, unde e poza?">
+        </div>
+        <div class="col pt-5">
+            <h5 class="card-title">@Product.Name</h5>
+            <p class="card-text">@Product.Brand</p>
+        </div>
+    </div>
+    <br />
+    <p class="card-text">@Product.Description</p>
+    <hr />
+    <p class="text-danger">@Product.Price</p>
 
+    <div class="d-flex justify-content-around">
+        <a class="btn btn-primary" href="/products">
+            <span class="oi oi-media-step-backward"></span> Back To List
+        </a>
+        <button class="btn btn-secondary" @onclick="HandleAddProductToCart">
+            <span class="oi oi-plus"></span> Add Product to Cart
+        </button>
+    </div>
+</div>
 
 @code {
     Product Product = new();
@@ -14,6 +39,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Product = await viewProduct.GetProduct();
+        Product = await viewProduct.Execute(Endpoints.ProductUrl, Id);
+    }
+
+    private async Task HandleAddProductToCart()
+    {
+        await addProductToCart.ExecuteAsync(Product);
+        navManager.NavigateTo("/");
     }
 }

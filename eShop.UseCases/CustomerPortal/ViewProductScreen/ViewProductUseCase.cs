@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace eShop.UseCases.CustomerPortal.ViewProductScreen;
 
-namespace eShop.UseCases.CustomerPortal.ViewProductScreen
+public class ViewProductUseCase : IViewProductUseCase
 {
-    internal class ViewProductUseCase
+    private readonly IProductRepositoryUI _productRepoUI;
+
+    public ViewProductUseCase(IProductRepositoryUI productRepoUI)
     {
+        _productRepoUI = productRepoUI;
+    }
+
+    public async Task<Product> Execute(string url, int id)
+    {
+        return await _productRepoUI.GetbyId(url, id);
     }
 }

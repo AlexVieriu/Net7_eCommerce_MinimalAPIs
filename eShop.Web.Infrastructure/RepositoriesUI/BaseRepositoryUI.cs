@@ -52,7 +52,7 @@ public class BaseRepositoryUI<T> : IBaseRepositoryUI<T> where T : class
 
         _client.DefaultRequestHeaders.Authorization = await HeaderValue();
 
-        var item = await _client.GetFromJsonAsync<T>(url + id);
+        var item = await _client.GetFromJsonAsync<T>(url + "/" + id);
         if (item == null)
             return default(T);
 

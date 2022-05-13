@@ -13,6 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\eShop.ShoppingCart.LocalStorage\eShop.ShoppingCart.LocalStorage.csproj" />
+		<ProjectReference Include="..\eShop.StateStore.DI\eShop.StateStore.DI.csproj" />
 		<ProjectReference Include="..\eShop.Web.AdminPortal\eShop.Web.AdminPortal.csproj" />
 		<ProjectReference Include="..\eShop.Web.Common\eShop.Web.Common.csproj" />
 		<ProjectReference Include="..\eShop.Web.CustomerPortal\eShop.Web.CustomerPortal.csproj" />

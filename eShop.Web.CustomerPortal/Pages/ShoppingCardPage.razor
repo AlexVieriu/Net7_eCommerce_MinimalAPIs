@@ -1,0 +1,21 @@
+﻿@page "/shoppingCart"
+
+<h3>ShoppingCardPage</h3>
+
+<div class="row">
+    <div class="col-7">
+        @foreach (var item in OrderListItems)
+        {
+            <LineItemComp />
+        }
+    </div>
+    <div class="col">
+        <OrderSummaryComp />
+    </div>
+</div>
+
+
+
+@code {
+    List<OrderLineItem> OrderListItems;
+}

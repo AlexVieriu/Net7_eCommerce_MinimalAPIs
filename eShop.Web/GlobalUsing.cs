@@ -1,5 +1,12 @@
 ﻿global using Blazored.LocalStorage;
+global using eShop.ShoppingCart.LocalStorage;
+global using eShop.StateStore.DI;
+global using eShop.UseCases.CustomerPortal.Plugins.StateStore;
+global using eShop.UseCases.CustomerPortal.Plugins.Web;
 global using eShop.UseCases.CustomerPortal.SearchProductScreen;
+global using eShop.UseCases.CustomerPortal.ShoppingCartScreen.Contracts;
+global using eShop.UseCases.CustomerPortal.ShoppingCartScreen.Services;
+global using eShop.UseCases.CustomerPortal.ViewProductScreen;
 global using eShop.UseCases.Web.Infrastructure.Authentication;
 global using eShop.UseCases.Web.Infrastructure.Repositories;
 global using eShop.Web;

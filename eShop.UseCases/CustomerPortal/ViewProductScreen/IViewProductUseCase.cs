@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace eShop.UseCases.CustomerPortal.ViewProductScreen;
 
-namespace eShop.UseCases.CustomerPortal.ViewProductScreen
+public interface IViewProductUseCase
 {
-    internal interface IViewProductUseCase
-    {
-    }
+    Task<Product> Execute(string url, int id);
 }
