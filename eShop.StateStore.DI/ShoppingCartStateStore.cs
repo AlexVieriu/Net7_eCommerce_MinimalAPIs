@@ -3,7 +3,7 @@ using eShop.UseCases.CustomerPortal.Plugins.Web;
 
 namespace eShop.StateStore.DI;
 
-public class ShoppingCartStateStore : IShoppingCartStateStore
+public class ShoppingCartStateStore : StateStore, IShoppingCartStateStore
 {
     private readonly IShoppingCart _cart;
 

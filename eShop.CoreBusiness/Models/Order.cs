@@ -34,7 +34,7 @@ public class Order
         }
     }
 
-    public void RemoveProduct(int productId)
+    public void RemoveLineItem(int productId)
     {
         var item = LineItems.Where(q => q.ProductId == productId).FirstOrDefault();
 

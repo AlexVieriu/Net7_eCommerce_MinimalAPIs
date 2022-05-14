@@ -37,10 +37,10 @@ public class ShoppingCartBase : IShoppingCart
         return order;
     }
 
-    public async Task<Order> RemoveProductFromCartAsync(int productId)
+    public async Task<Order> RemoveLineItemFromCartAsync(int productId)
     {
         var order = await GetOrderAsync();
-        order.RemoveProduct(productId);
+        order.RemoveLineItem(productId);
         await SetOrderAsync(order);
 
         return order;
@@ -64,7 +64,7 @@ public class ShoppingCartBase : IShoppingCart
             if (quantity < 0)
                 return order;
             else if (quantity == 0)
-                order = await RemoveProductFromCartAsync(productId);
+                order = await RemoveLineItemFromCartAsync(productId);
 
             else
             {
