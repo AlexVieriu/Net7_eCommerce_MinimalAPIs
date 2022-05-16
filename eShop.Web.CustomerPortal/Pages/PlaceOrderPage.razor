@@ -1,0 +1,48 @@
+﻿@inject IPlaceOrderUseCase placeOrder
+@inject NavigationManager navManager
+
+<h3>PlaceOrderPage</h3>
+
+
+<EditForm Model="Order" OnValidSubmit="OnSubmitCustomer" class="card p-4">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label class="fw-bold">Customer Name</label>
+        <InputText class="form-control" @bind-Value="Order.CustomerName" />
+    </div>
+
+    <div>
+        <label class="fw-bold">Customer Address</label>
+        <InputText class="form-control" @bind-Value="Order.CustomerAddress" />
+    </div>
+
+    <div>
+        <label class="fw-bold">Customer StateProvince</label>
+        <InputText class="form-control" @bind-Value="Order.CustomerStateProvince" />
+    </div>
+
+    <div>
+        <label class="fw-bold">Customer Country</label>
+        <InputText class="form-control" @bind-Value="Order.CustomerCountry" />
+    </div>
+
+    <div>
+        <label class="fw-bold">Customer City</label>
+        <InputText class="form-control" @bind-Value="Order.CustomerCity" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit Customer</button>
+</EditForm>
+
+@code {
+    Order Order = new();
+
+    private async Task OnSubmitCustomer()
+    {
+        var orderUniqueId = await placeOrder.ExecuteAsync(Endpoints.OrderUrl, Order);
+        if (string.IsNullOrWhiteSpace(orderUniqueId) == false)
+            navManager.NavigateTo($"/confirmOrder/{orderUniqueId}");
+    }
+}

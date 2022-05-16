@@ -12,7 +12,7 @@ public class ShoppingCartStateStore : StateStore, IShoppingCartStateStore
         _cart = cart;
     }
 
-    public async Task<int> GetItemsCount()
+    public async Task<int> GetItemsCountAsync()
     {
         var order = await _cart.GetOrderAsync();
 

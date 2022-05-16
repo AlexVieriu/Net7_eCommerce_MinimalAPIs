@@ -2,5 +2,5 @@
 
 public interface IPlaceOrderUseCase
 {
-    Task<string> ExecuteAsync(Order order);
+    Task<string> ExecuteAsync(string urlOrder, Order order);
 }

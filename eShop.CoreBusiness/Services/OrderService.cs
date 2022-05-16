@@ -6,13 +6,13 @@ public class OrderService : IOrderService
         return ValidateOrder(order);
     }
 
-    public bool ValidateCustomerInformation(string name, string address, string city, string province, string country)
+    public bool ValidateCustomerInformation(Order order)
     {
-        if (string.IsNullOrWhiteSpace(name) ||
-            string.IsNullOrWhiteSpace(address) ||
-            string.IsNullOrWhiteSpace(city) ||
-            string.IsNullOrWhiteSpace(province) ||
-            string.IsNullOrWhiteSpace(country))
+        if (string.IsNullOrWhiteSpace(order.CustomerName) ||
+            string.IsNullOrWhiteSpace(order.CustomerAddress) ||
+            string.IsNullOrWhiteSpace(order.CustomerCity) ||
+            string.IsNullOrWhiteSpace(order.CustomerCountry) ||
+            string.IsNullOrWhiteSpace(order.CustomerStateProvince))
             return false;
         return true;
     }
@@ -54,11 +54,7 @@ public class OrderService : IOrderService
         }
 
         // validate CustomerInformation
-        if (!ValidateCustomerInformation(order.CustomerAddress,
-                                        order.CustomerCity,
-                                        order.CustomerCountry,
-                                        order.CustomerName,
-                                        order.CustomerStateProvince))
+        if (!ValidateCustomerInformation(order))
             return false;
 
         return true;

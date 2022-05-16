@@ -2,5 +2,5 @@
 
 public interface IUpdateQuantityUseCase
 {
-
+    Task<Order> ExecuteAsync(int productId, int qty);
 }

@@ -10,6 +10,6 @@ public static class Endpoints
     // Product
     public static string ProductUrl = $"{BaseUrl}/product";
 
-
     // Order
+    public static string OrderUrl = $"{BaseUrl}/order";
 }

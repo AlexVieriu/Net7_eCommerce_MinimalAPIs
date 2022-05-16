@@ -24,15 +24,12 @@ public class ShoppingCartBase : IShoppingCart
 
     public async Task<Order> GetOrderAsync()
     {
-        Order order;
-        var orderStr = await _localStorage.GetItemAsync<string>(shoppingCartName);
-        if (string.IsNullOrWhiteSpace(orderStr) || orderStr.ToLower() == "null")
+        var order = await _localStorage.GetItemAsync<Order>(shoppingCartName);
+        if (order == null)
         {
             order = new();
             await SetOrderAsync(order);
         }
-        else
-            order = JsonConvert.DeserializeObject<Order>(shoppingCartName);
 
         return order;
     }
@@ -70,7 +67,11 @@ public class ShoppingCartBase : IShoppingCart
             {
                 var lineItem = order.LineItems.Where(q => q.ProductId == productId).FirstOrDefault();
                 if (lineItem != null)
+                {
                     lineItem.Quantity = quantity;
+                    lineItem.Price = Math.Round(quantity * lineItem.Product.Price, 2);
+                }
+
                 await SetOrderAsync(order);
             }
         }

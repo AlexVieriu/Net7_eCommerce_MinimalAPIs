@@ -1,5 +1,47 @@
-﻿<h3>OrderSummaryComp</h3>
+﻿<div class="card p-4">
+
+    <h5>OrderSummary</h5><br>
+
+    <div class="d-flex justify-content-between">
+        <p>Item(@Order.LineItems.Count)</p>
+        <p>@totalPrice.ToString("c")</p>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <p>Estimated Taxes</p>
+        <p>@(0.ToString("c"))</p>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <p>Shipping & Handling</p>
+        <p>@(0.ToString("c"))</p>
+    </div>
+    <hr />
+
+    <div class="d-flex justify-content-between text-danger">
+        <p>Total Price</p>
+        <p>@totalPrice.ToString("c")</p>
+    </div>
+
+    @if (IsVisible)
+    {
+        <a href="/placeOrder" class="btn btn-primary">Place Order</a>
+    }
+</div>
 
 @code {
+    double totalPrice;
+
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public Order Order { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        totalPrice = 0;
+        Order.LineItems.ForEach(q => totalPrice += q.Quantity * q.Product.Price);
+    }
 
 }

@@ -2,4 +2,5 @@
 
 public interface IDeleteLineItemUseCase
 {
+    Task<Order> ExecuteAsync(int productId);
 }

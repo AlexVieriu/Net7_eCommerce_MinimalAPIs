@@ -23,5 +23,8 @@ builder.Services.AddTransient<ISearchProductUseCase, SearchProductUseCase>();
 builder.Services.AddTransient<IViewProductUseCase, ViewProductUseCase>();
 builder.Services.AddTransient<IAddProductToCartUseCase, AddProductToCartUseCase>();
 
+builder.Services.AddTransient<IViewShoppingCartUseCase, ViewShoppingCartUseCase>();
+builder.Services.AddTransient<IUpdateQuantityUseCase, UpdateQuantityUseCase>();
+builder.Services.AddTransient<IDeleteLineItemUseCase, DeleteLineItemUseCase>();
 
 await builder.Build().RunAsync();

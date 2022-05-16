@@ -1,28 +1,42 @@
 ﻿@page "/shoppingCart"
 
+@attribute [Authorize]
+
 @inject IViewShoppingCartUseCase viewShoppingCart
 
 <h3 class="my-4">ShoppingCardPage</h3>
 
-<div class="row">
-    <div class="col-7">
-        @foreach (var item in OrderListItems)
-        {
-            <LineItemComp />
-        }
+@if (order != null && order.LineItems != null)
+{
+    <div class="row">
+        <div class="col-8">
+            @foreach (var item in order.LineItems)
+            {
+                <LineItemComp LineItem="item" OnUpdateQty="HandleUpdateQty" OnDeleteLineItem="HandleDeleteLineItem" />
+                <br />
+            }
+        </div>
+        <div class="col">
+            <OrderSummaryComp Order="order" IsVisible="true"/>
+        </div>
     </div>
-    <div class="col">
-        <OrderSummaryComp />
-    </div>
-</div>
-
-
+}
 
 @code {
-    Order order=new();
+    Order order = new();
 
-    protected override await Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        order = await _viewShoppingCart.ExecuteAsync();
+        order = await viewShoppingCart.ExecuteAsync();
+    }
+
+    private async Task HandleUpdateQty(Order order)
+    {
+        this.order = order;
+    }
+
+    private async Task HandleDeleteLineItem(Order order)
+    {
+        this.order = order;
     }
 }

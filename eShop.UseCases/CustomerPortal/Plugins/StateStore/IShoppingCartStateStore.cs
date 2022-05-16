@@ -2,5 +2,5 @@
 
 public interface IShoppingCartStateStore : IStateStore
 {
-    Task<int> GetItemsCount();
+    Task<int> GetItemsCountAsync();
 }
