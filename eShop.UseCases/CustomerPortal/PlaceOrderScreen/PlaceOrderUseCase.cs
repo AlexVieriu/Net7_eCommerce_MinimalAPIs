@@ -1,6 +1,4 @@
-﻿using eShop.CoreBusiness.Services;
-
-namespace eShop.UseCases.CustomerPortal.ShoppingCartScreen.Services;
+﻿namespace eShop.UseCases.CustomerPortal.PlaceOrderScreen;
 
 public class PlaceOrderUseCase : IPlaceOrderUseCase
 {
@@ -35,9 +33,14 @@ public class PlaceOrderUseCase : IPlaceOrderUseCase
             if (isCreated)
                 return order.UniqueId;
             else
-                return String.Empty;
+                return string.Empty;
         }
 
-        return String.Empty;
+        return string.Empty;
+    }
+
+    public async Task<Order> GetSummaryForOrderAsync()
+    {
+        return await _shoppingCart.GetOrderAsync();
     }
 }

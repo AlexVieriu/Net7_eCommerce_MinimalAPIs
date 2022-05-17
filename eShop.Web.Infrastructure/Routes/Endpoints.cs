@@ -12,4 +12,5 @@ public static class Endpoints
 
     // Order
     public static string OrderUrl = $"{BaseUrl}/order";
+    public static string OrderUniqueIdUrl = $"{BaseUrl}/order/uniqueId";
 }

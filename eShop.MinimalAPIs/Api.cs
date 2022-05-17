@@ -6,9 +6,11 @@ public static class Api
         // All of my API endpoints
         // Orders
         app.MapPost("/order", CreateOrderAsync);
+
+        // For API
         app.MapGet("/order/lineItems/{orderId:int}", GetLineItemsByOrderIdAsync);
         app.MapGet("/order/{orderId:int}", GetOrderByIdAsync);
-        app.MapGet("/orders/{uniqueId}", GetOrderByUniqueIdAsync);
+        app.MapGet("/order/uniqueId", GetOrderByUniqueIdAsync);
         app.MapGet("/orders", GetOrdersAsync);
         app.MapGet("/orders/outstrandings", GetOutStrandingOrdersAsync);
         app.MapGet("/orders/processed", GetProccesedOrdersAsync);
@@ -35,7 +37,7 @@ public static class Api
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
-  
+
     public static async Task<IResult> GetLineItemsByOrderIdAsync(int orderId, IOrderRepository orderRepo)
     {
         try
@@ -60,7 +62,7 @@ public static class Api
         }
     }
 
-    public static async Task<IResult> GetOrderByUniqueIdAsync(string uniqueId, IOrderRepository orderRepo)
+    public static async Task<IResult> GetOrderByUniqueIdAsync([FromQuery] string uniqueId, IOrderRepository orderRepo)
     {
         try
         {
@@ -130,7 +132,7 @@ public static class Api
         }
     }
 
-    public static async Task<IResult> GetProductsAsync([FromQuery]string? filter, IProductRepository productRepo)
+    public static async Task<IResult> GetProductsAsync([FromQuery] string? filter, IProductRepository productRepo)
     {
         try
         {

@@ -1,43 +1,68 @@
-﻿@inject IPlaceOrderUseCase placeOrder
+﻿@page "/placeOrder"
+
+@inject IPlaceOrderUseCase placeOrder
 @inject NavigationManager navManager
 
-<h3>PlaceOrderPage</h3>
+<h3 class="mb-5">PlaceOrderPage</h3>
 
+<div class="row ms-4">
+    <EditForm Model="Order" OnValidSubmit="OnSubmitCustomer" class="card p-4 col-7 me-5">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-<EditForm Model="Order" OnValidSubmit="OnSubmitCustomer" class="card p-4">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+        <div class="mb-3">
+            <label class="fw-bold">Customer Name</label>
+            <InputText class="form-control" @bind-Value="Order.CustomerName" />
+        </div>
 
-    <div>
-        <label class="fw-bold">Customer Name</label>
-        <InputText class="form-control" @bind-Value="Order.CustomerName" />
+        <div class="mb-3">
+            <label class="fw-bold">Customer Address</label>
+            <InputText class="form-control" @bind-Value="Order.CustomerAddress" />
+        </div>
+
+        <div class="mb-3">
+            <label class="fw-bold">Customer StateProvince</label>
+            <InputText class="form-control" @bind-Value="Order.CustomerStateProvince" />
+        </div>
+
+        <div class="mb-3">
+            <label class="fw-bold">Customer Country</label>
+            <InputText class="form-control" @bind-Value="Order.CustomerCountry" />
+        </div>
+
+        <div class="mb-5">
+            <label class="fw-bold">Customer City</label>
+            <InputText class="form-control" @bind-Value="Order.CustomerCity" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit Customer</button>
+    </EditForm>
+
+    <div class="col">
+        <OrderSummaryComp Order="Order" IsVisible="false" />
     </div>
+</div>
 
-    <div>
-        <label class="fw-bold">Customer Address</label>
-        <InputText class="form-control" @bind-Value="Order.CustomerAddress" />
-    </div>
-
-    <div>
-        <label class="fw-bold">Customer StateProvince</label>
-        <InputText class="form-control" @bind-Value="Order.CustomerStateProvince" />
-    </div>
-
-    <div>
-        <label class="fw-bold">Customer Country</label>
-        <InputText class="form-control" @bind-Value="Order.CustomerCountry" />
-    </div>
-
-    <div>
-        <label class="fw-bold">Customer City</label>
-        <InputText class="form-control" @bind-Value="Order.CustomerCity" />
-    </div>
-
-    <button class="btn btn-primary" type="submit">Submit Customer</button>
-</EditForm>
 
 @code {
     Order Order = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Order = await placeOrder.GetSummaryForOrderAsync();
+            if (Order != null)
+            {
+                Order.CustomerAddress = "Aleea lunca de dincolo";
+                Order.CustomerCity = "Albinutza";
+                Order.CustomerCountry = "Bucuresti";
+                Order.CustomerName = "Vieriu Alex";
+                Order.CustomerStateProvince = "No State";
+                StateHasChanged();
+            }
+        }
+    }
 
     private async Task OnSubmitCustomer()
     {

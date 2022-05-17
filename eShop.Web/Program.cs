@@ -1,3 +1,5 @@
+using eShop.CoreBusiness.Services;
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
@@ -18,7 +20,10 @@ builder.Services.AddScoped<IShoppingCart, ShoppingCartBase>();
 builder.Services.AddScoped<IStateStore, StateStore>();
 builder.Services.AddScoped<IShoppingCartStateStore, ShoppingCartStateStore>();
 
-builder.Services.AddTransient<IProductRepositoryUI, ProductRepositoryUI>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepositoryUI, OrderRepositoryUI>();
+builder.Services.AddScoped<IProductRepositoryUI, ProductRepositoryUI>();
+
 builder.Services.AddTransient<ISearchProductUseCase, SearchProductUseCase>();
 builder.Services.AddTransient<IViewProductUseCase, ViewProductUseCase>();
 builder.Services.AddTransient<IAddProductToCartUseCase, AddProductToCartUseCase>();
@@ -26,5 +31,9 @@ builder.Services.AddTransient<IAddProductToCartUseCase, AddProductToCartUseCase>
 builder.Services.AddTransient<IViewShoppingCartUseCase, ViewShoppingCartUseCase>();
 builder.Services.AddTransient<IUpdateQuantityUseCase, UpdateQuantityUseCase>();
 builder.Services.AddTransient<IDeleteLineItemUseCase, DeleteLineItemUseCase>();
+
+builder.Services.AddTransient<IPlaceOrderUseCase, PlaceOrderUseCase>();
+
+
 
 await builder.Build().RunAsync();
