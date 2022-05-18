@@ -3,9 +3,9 @@
 public class AddProductToCartUseCase : IAddProductToCartUseCase
 {
     private readonly IShoppingCart _shoppingCart;
-    private readonly IStateStore _stateStore;
+    private readonly IShoppingCartStateStore _stateStore;
 
-    public AddProductToCartUseCase(IShoppingCart shoppingCart, IStateStore stateStore)
+    public AddProductToCartUseCase(IShoppingCart shoppingCart, IShoppingCartStateStore stateStore)
     {
         _shoppingCart = shoppingCart;
         _stateStore = stateStore;

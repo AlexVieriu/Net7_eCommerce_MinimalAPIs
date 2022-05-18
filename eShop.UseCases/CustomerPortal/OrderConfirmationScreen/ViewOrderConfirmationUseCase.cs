@@ -11,6 +11,6 @@ public class ViewOrderConfirmationUseCase : IViewOrderConfirmationUseCase
 
     public async Task<Order> ExecuteAsync(string url, string uniqueId)
     {
-        return await _orderRepoUI.GetOrderByUniqueId(url, uniqueId);
+        return await _orderRepoUI.GetOrderByUniqueId(url + "/" + uniqueId);
     }
 }

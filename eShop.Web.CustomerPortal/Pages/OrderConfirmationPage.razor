@@ -1,10 +1,79 @@
-﻿
-@*Customer details*@
+﻿@page "/confirmOrder/{uniqueId}"
 
-<OrderSummaryComp/>
+@inject IViewOrderConfirmationUseCase viewOrder
+@inject IMapper mapper
 
-@*table: Name Qty, Price of the Order*@
+<div class="row">
+
+    <div class="col card p-3">
+        <h5>Customer Details</h5>
+        <br>
+
+        <div class="mb-2 d-flex justify-content-between">
+            <p class="fw-bold">Customer Name</p>
+            <p>@CustomerUI.CustomerName</p>
+        </div>
+
+        <div class="mb-2 d-flex justify-content-between">
+            <p class="fw-bold">Customer Address</p>
+            <p>@CustomerUI.CustomerAddress</p>
+        </div>
+
+        <div class="mb-2 d-flex justify-content-between">
+            <p class="fw-bold">Customer City</p>
+            <p>@CustomerUI.CustomerCity</p>
+        </div>
+
+        <div class="mb-2 d-flex justify-content-between">
+            <p class="fw-bold">Country</p>
+            <p>@CustomerUI.CustomerCountry</p>
+        </div>
+
+        <div class="mb-2 d-flex justify-content-between">
+            <p class="fw-bold">State</p>
+            <p>@CustomerUI.CustomerStateProvince</p>
+        </div>
+    </div>
+
+    <div class="col">
+        <OrderSummaryComp Order="OrderModel" />
+    </div>
+</div>
+<br />
+
+<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th>Name</th>
+            <th>Qty</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var lineItem in OrderModel.LineItems)
+        {
+            <tr>
+                <td>@lineItem.Product.Name</td>
+                <td>@lineItem.Quantity</td>
+                <td>@lineItem.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 
 @code {
+    Order OrderModel = new();
+    CustomerUI CustomerUI = new();
 
+    [Parameter]
+    public string UniqueId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        OrderModel = await viewOrder.ExecuteAsync(Endpoints.OrderUrl, UniqueId);
+
+        mapper.Map(OrderModel, CustomerUI);
+    }
 }

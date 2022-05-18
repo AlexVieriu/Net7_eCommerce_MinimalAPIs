@@ -12,10 +12,16 @@ public class OrderRepositoryUI : BaseRepositoryUI<Order>, IOrderRepositoryUI
         _localStorage = localStorage;
     }
 
-    public async Task<Order> GetOrderByUniqueId(string url, string uniqueId)
+    public async Task<Order> GetOrderByUniqueId(string url)
     {
-        var order =  await _client.GetFromJsonAsync<Order>($"{Endpoints.OrderUniqueIdUrl}?uniqueId={uniqueId}");
+        _client.DefaultRequestHeaders.Authorization = await HeaderValue();
+        var order =  await _client.GetFromJsonAsync<Order>(url);
 
         return order;
+    }
+        private async Task<AuthenticationHeaderValue> HeaderValue()
+    {
+        var bearerToken = await _localStorage.GetItemAsync<string>(Token.TokenName);
+        return new AuthenticationHeaderValue("bearer", bearerToken);
     }
 }

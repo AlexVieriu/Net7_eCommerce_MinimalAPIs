@@ -70,7 +70,7 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-////Minimal APIs 
+//Minimal APIs 
 app.ConfigureApi();
 
 #region Minimal Apis

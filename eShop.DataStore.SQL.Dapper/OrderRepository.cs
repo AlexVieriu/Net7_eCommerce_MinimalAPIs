@@ -43,7 +43,7 @@ public class OrderRepository : IOrderRepository
                 lineItemsParams.Add("Price", item.Price);
                 lineItemsParams.Add("Quantity", item.Quantity);
                 lineItemsParams.Add("ProductId", item.ProductId);
-                lineItemsParams.Add("OrderId", item.OrderId);
+                lineItemsParams.Add("OrderId", orderId);
                 lineItemsParams.Add("LineItemId", DbType.Int32, direction: ParameterDirection.Output);
 
                 await _sql.SaveDataTransaction("sp_CreateLineItem", lineItemsParams);
