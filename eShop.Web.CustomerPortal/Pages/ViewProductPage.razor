@@ -1,5 +1,7 @@
 ﻿@page "/product/{id:int}"
 
+@attribute [Authorize]
+
 @inject IViewProductUseCase viewProduct
 @inject IAddProductToCartUseCase addProductToCart
 @inject NavigationManager navManager

@@ -1,8 +1,15 @@
 ﻿<nav class="navbar navbar-light bg-light px-xl-5 px-sm-3">
-    <div class="d-flex justify-content-start">
-
-    </div>
-    <div class="d-flex justify-content-end">
-        <CardComp/>
-    </div>
+    <AuthorizeView>
+        <Authorized>
+            <div class="d-flex justify-content-start">
+            </div>
+            <div class="d-flex justify-content-end">
+                <span class="navbar">
+                    @context?.User?.Identity?.Name
+                    (@context?.User?.Claims.Where(q=> q.Type == ClaimTypes.Role).Select(s=> s.Value).FirstOrDefault()) &nbsp; 
+                </span>
+                <CardComp />
+            </div>
+        </Authorized>
+    </AuthorizeView>
 </nav>

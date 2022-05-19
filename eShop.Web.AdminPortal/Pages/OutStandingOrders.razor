@@ -1,5 +1,7 @@
 ﻿@page "/outstandingorders"
 
+@attribute [Authorize(Roles = "Administrator")]
+
 <h3>OutStandingOrders</h3>
 
 @code {

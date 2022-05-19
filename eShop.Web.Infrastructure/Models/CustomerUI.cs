@@ -1,4 +1,4 @@
-﻿namespace eShop.Web.CustomerPortal.Models;
+﻿namespace eShop.Web.Infrastructure.Models;
 
 public class CustomerUI
 {

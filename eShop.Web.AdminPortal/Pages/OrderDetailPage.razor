@@ -1,5 +1,35 @@
-﻿<h3>OrderDetailPage</h3>
+﻿@page "/orderDetailed/{orderId:int}"
+
+@inject NavigationManager navManager
+@inject IViewOrderDetailUseCase viewOrder
+@inject IProcessOrderUseCase processOrder
+@inject IMapper map
+
+@attribute [Authorize(Roles = "Administrator")]
+
+<h3>Order Detail</h3>
+<br />
+
+@if (Order != null)
+{
+
+}
 
 @code {
+    Order Order = new();
+    CustomerUI Customer = new();
+
+    [Parameter]
+    public int orderId { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (orderId > 0)
+            Order = await viewOrder.ExecuteAsync(Endpoints.OrderUrl, orderId);
+
+        map.Map(Order, Customer);
+    }
+
 
 }

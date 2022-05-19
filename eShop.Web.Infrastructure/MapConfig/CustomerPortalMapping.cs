@@ -1,4 +1,4 @@
-﻿namespace eShop.Web.CustomerPortal.MapConfig;
+﻿namespace eShop.Web.Infrastructure.MapConfig;
 
 public class CustomerPortalMapping : Profile
 {

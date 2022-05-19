@@ -1,5 +1,7 @@
 ﻿@page "/placeOrder"
 
+@attribute [Authorize]
+
 @inject IPlaceOrderUseCase placeOrder
 @inject NavigationManager navManager
 @inject IMapper mapper

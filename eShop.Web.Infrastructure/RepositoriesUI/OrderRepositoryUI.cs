@@ -15,11 +15,21 @@ public class OrderRepositoryUI : BaseRepositoryUI<Order>, IOrderRepositoryUI
     public async Task<Order> GetOrderByUniqueId(string url)
     {
         _client.DefaultRequestHeaders.Authorization = await HeaderValue();
-        var order =  await _client.GetFromJsonAsync<Order>(url);
+        var order = await _client.GetFromJsonAsync<Order>(url);
 
         return order;
     }
-        private async Task<AuthenticationHeaderValue> HeaderValue()
+
+    public async Task<Order> GetProcessedOrderById(string url, int id, string adminUser, DateTime dateProcessed)
+    {
+        _client.DefaultRequestHeaders.Authorization = await HeaderValue();
+        var order = await _client.GetFromJsonAsync<Order>($"{url}\\{id}?adminUser={adminUser}&dateProcessed={dateProcessed}");
+
+        return order;
+    }
+
+
+    private async Task<AuthenticationHeaderValue> HeaderValue()
     {
         var bearerToken = await _localStorage.GetItemAsync<string>(Token.TokenName);
         return new AuthenticationHeaderValue("bearer", bearerToken);

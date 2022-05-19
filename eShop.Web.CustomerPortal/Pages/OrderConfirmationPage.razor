@@ -1,5 +1,7 @@
 ﻿@page "/confirmOrder/{uniqueId}"
 
+@attribute [Authorize]
+
 @inject IViewOrderConfirmationUseCase viewOrder
 @inject IMapper mapper
 

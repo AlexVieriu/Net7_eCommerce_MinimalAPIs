@@ -1,4 +1,10 @@
-﻿<h3>ProccesedOrderPage</h3>
+﻿@page "/proccesedOrders"
+
+
+<h3>ProccesedOrderPage</h3>
+
+@attribute [Authorize(Roles = "Administrator")]
+
 
 @code {
 

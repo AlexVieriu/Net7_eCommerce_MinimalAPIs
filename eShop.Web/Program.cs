@@ -35,6 +35,4 @@ builder.Services.AddTransient<IDeleteLineItemUseCase, DeleteLineItemUseCase>();
 builder.Services.AddTransient<IPlaceOrderUseCase, PlaceOrderUseCase>();
 builder.Services.AddTransient<IViewOrderConfirmationUseCase, ViewOrderConfirmationUseCase>();
 
-
-
 await builder.Build().RunAsync();
