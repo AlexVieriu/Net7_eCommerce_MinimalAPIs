@@ -20,14 +20,32 @@ public class OrderRepositoryUI : BaseRepositoryUI<Order>, IOrderRepositoryUI
         return order;
     }
 
-    public async Task<Order> GetProcessedOrderById(string url, int id, string adminUser, DateTime dateProcessed)
+    public async Task<bool> GetProcessedOrderById(string url, int id, Order order)
     {
         _client.DefaultRequestHeaders.Authorization = await HeaderValue();
-        var order = await _client.GetFromJsonAsync<Order>($"{url}\\{id}?adminUser={adminUser}&dateProcessed={dateProcessed}");
+        var response =  await _client.PutAsJsonAsync($"{url}/{id}", order);
+        if (response.IsSuccessStatusCode)
+            return true;
 
-        return order;
+        return false;
     }
 
+    public async Task<List<Order>> GetOutstandingOrders(string url)
+    {
+        _client.DefaultRequestHeaders.Authorization = await HeaderValue();
+
+        var orders = await _client.GetFromJsonAsync<List<Order>>(url);
+
+        return orders;
+    }
+
+    public async Task<List<Order>> GetProcessedOrders(string url)
+    {
+        _client.DefaultRequestHeaders.Authorization = await HeaderValue();
+        var orders = await _client.GetFromJsonAsync<List<Order>>(url);
+
+        return orders;
+    }
 
     private async Task<AuthenticationHeaderValue> HeaderValue()
     {

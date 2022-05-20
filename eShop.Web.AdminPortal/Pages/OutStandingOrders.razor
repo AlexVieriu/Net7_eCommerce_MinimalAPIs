@@ -2,8 +2,20 @@
 
 @attribute [Authorize(Roles = "Administrator")]
 
-<h3>OutStandingOrders</h3>
+@inject IViewOutstandingOrdersUseCase viewOrders
+
+
+<h3 class="mb-4">OutStandingOrders</h3>
+
+<OrderListComp Orders="Orders"/>
+
+
 
 @code {
+    List<Order> Orders= new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        Orders = await viewOrders.ExecuteAsync(Endpoints.OutstandingOrdersUrl);
+    }
 }

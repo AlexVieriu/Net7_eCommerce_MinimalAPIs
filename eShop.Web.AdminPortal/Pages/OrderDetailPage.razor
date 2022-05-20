@@ -5,6 +5,7 @@
 @inject IProcessOrderUseCase processOrder
 @inject IMapper map
 
+
 @attribute [Authorize(Roles = "Administrator")]
 
 <h3>Order Detail</h3>
@@ -12,7 +13,39 @@
 
 @if (Order != null)
 {
+    <p><b>Customer Info:</b></p>
+    <p>@Order.CustomerName</p>
+    <p>@Order.CustomerAddress</p>
+    <p>@Order.CustomerCity</p>
+    <p>@Order.CustomerStateProvince</p>
+    <p>@Order.CustomerCountry</p>
 
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Order.LineItems)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Product.Price</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <br />
+    <button class="btn btn-primary" @onclick="HandleProcessOrder">
+        Mark Order as Processed
+    </button>
 }
 
 @code {
@@ -22,6 +55,8 @@
     [Parameter]
     public int orderId { get; set; }
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,5 +66,18 @@
         map.Map(Order, Customer);
     }
 
+    private async Task HandleProcessOrder()
+    {
+        AuthenticationState authenticationState;
+        authenticationState = await authenticationStateTask;
 
+        var userRole = authenticationState.User.Claims.Where(q => q.Type == ClaimTypes.Role)
+                                                         .Select(s => s.Value)
+                                                         .FirstOrDefault();
+
+        var isProcessed = await processOrder.ExecuteAsync(Endpoints.OrderProcessedUrl, Endpoints.OrderUrl, orderId, userRole);
+        if (isProcessed)
+            navManager.NavigateTo("/outstandingorders");
+
+    }
 }

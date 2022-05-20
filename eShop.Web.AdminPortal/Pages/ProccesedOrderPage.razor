@@ -1,11 +1,21 @@
-﻿@page "/proccesedOrders"
-
-
-<h3>ProccesedOrderPage</h3>
+﻿@page "/processedOrders"
 
 @attribute [Authorize(Roles = "Administrator")]
 
+@inject IViewProccessedOrdersUseCase proccessedOrder
+
+<h4>Procesed Orders</h4>
+<br />
+
+<OrderListComp Orders="Orders" />
+
+
 
 @code {
+    private List<Order>? Orders = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        Orders = await proccessedOrder.ExecuteAsync(Endpoints.OrderProcessedUrl);
+    }
 }

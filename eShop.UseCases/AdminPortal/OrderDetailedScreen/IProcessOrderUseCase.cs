@@ -2,5 +2,5 @@
 
 public interface IProcessOrderUseCase
 {
-    Task<bool> ExecuteAsync(string url, int orderId, string adminUserName);
+    Task<bool> ExecuteAsync(string orderProcessedUrl, string orderUrl, int orderId, string adminUserName);
 }

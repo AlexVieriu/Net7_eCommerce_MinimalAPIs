@@ -1,5 +1,31 @@
-﻿<h3>OrderListComp</h3>
+﻿@if (Orders != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>DatePlaced</th>
+                <th>Order Id</th>
+                <th>Country</th>
+                <th>State / Province</th>
+                <th>Customer City</th>
+                <th>Customer Name</th>
+            </tr>
+        </thead>
+
+        @if (Orders.Count > 0)
+        {
+            <tbody>
+                @foreach (var order in Orders)
+                {
+                    <OrderItemComp Order="order" />
+                }
+            </tbody>
+        }
+    </table>
+}
+
 
 @code {
-
+    [Parameter]
+    public List<Order>? Orders { get; set; }
 }

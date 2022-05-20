@@ -13,5 +13,6 @@ public static class Endpoints
     // Order
     public static string OrderUrl = $"{BaseUrl}/order";
     public static string OrderProcessedUrl = $"{BaseUrl}/order/processed";    
+    public static string OutstandingOrdersUrl = $"{BaseUrl}/order/outstrandingsorders";    
 
 }

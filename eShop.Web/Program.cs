@@ -24,15 +24,11 @@ builder.Services.AddScoped<IProductRepositoryUI, ProductRepositoryUI>();
 
 builder.Services.AddTransient<IOrderService, OrderService>();
 
-builder.Services.AddTransient<ISearchProductUseCase, SearchProductUseCase>();
-builder.Services.AddTransient<IViewProductUseCase, ViewProductUseCase>();
-builder.Services.AddTransient<IAddProductToCartUseCase, AddProductToCartUseCase>();
+// Customer Portal Services
+builder.Services.CustomerPortalServices();
 
-builder.Services.AddTransient<IViewShoppingCartUseCase, ViewShoppingCartUseCase>();
-builder.Services.AddTransient<IUpdateQuantityUseCase, UpdateQuantityUseCase>();
-builder.Services.AddTransient<IDeleteLineItemUseCase, DeleteLineItemUseCase>();
+// Admin Portal Services
+builder.Services.AdminPortalServices();
 
-builder.Services.AddTransient<IPlaceOrderUseCase, PlaceOrderUseCase>();
-builder.Services.AddTransient<IViewOrderConfirmationUseCase, ViewOrderConfirmationUseCase>();
 
 await builder.Build().RunAsync();

@@ -1,5 +1,32 @@
-﻿<h3>OrderItemComp</h3>
+﻿@if (Order != null)
+{
+    <tr>
+        <td>
+            @if (Order.DatePlaced.HasValue)
+            {
+                @Order.DatePlaced.Value.ToShortDateString()
+                ;
+            }
+        </td>
+        <td>
+            @if (!Order.DateProcessed.HasValue)
+            {
+                <a href="/orderDetailed/@Order.OrderId">@Order.OrderId</a>
+            }
+            else
+            {
+                @Order.OrderId
+            }
+        </td>
+        <td>@Order.CustomerCountry</td>
+        <td>@Order.CustomerStateProvince</td>
+        <td>@Order.CustomerCity</td>
+        <td>@Order.CustomerName</td>
+    </tr>
+}
+
 
 @code {
-
+    [Parameter]
+    public Order? Order { get; set; }
 }

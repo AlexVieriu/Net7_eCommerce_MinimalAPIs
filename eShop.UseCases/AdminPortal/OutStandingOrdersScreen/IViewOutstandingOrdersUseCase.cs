@@ -2,5 +2,5 @@
 
 public interface IViewOutstandingOrdersUseCase
 {
-
+    Task<List<Order>> ExecuteAsync(string url);
 }

@@ -9,8 +9,8 @@ public static class Api
         app.MapGet("/order/{uniqueId}", GetOrderByUniqueIdAsync);           // [FromRoute]
         app.MapGet("/order/{orderId:int}", GetOrderByIdAsync);              // [FromRoute]        
         app.MapPut("/order/processed/{id}", UpdateOrderProcessedAsync);     // [FromRoute], [FromQuery], [FromQuery]
+        app.MapGet("/order/processed", GetProccesedOrdersAsync);
         app.MapGet("/order/outstrandingsorders", GetOutStrandingOrdersAsync);
-        app.MapGet("/order/processedorders", GetProccesedOrdersAsync);
 
         // For Testing API
         app.MapGet("/order/lineItems/{orderId:int}", GetLineItemsByOrderIdAsync);   // [FromRoute]       
@@ -107,8 +107,7 @@ public static class Api
         }
     }
     public static async Task<IResult> UpdateOrderProcessedAsync([FromRoute] int id,
-                                                                [FromQuery] string adminUser,
-                                                                [FromQuery] DateTime dateProcessed,
+                                                                [FromBody] Order order,
                                                                 IOrderRepository orderRepo)
     {
         try
@@ -116,7 +115,7 @@ public static class Api
             if (id < 1)
                 return Results.BadRequest();
 
-            await orderRepo.UpdateOrderProcessedAsync(adminUser, dateProcessed, id);
+            await orderRepo.UpdateOrderProcessedAsync(order.AdminUser, order.DateProcessed, id);
             return Results.Ok();
         }
         catch (Exception ex)

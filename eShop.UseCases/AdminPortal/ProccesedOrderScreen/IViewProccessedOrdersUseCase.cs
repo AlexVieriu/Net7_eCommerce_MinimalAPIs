@@ -1,6 +1,6 @@
 ﻿namespace eShop.UseCases.AdminPortal.ProccesedOrderScreen;
 
-public class IViewProccessedOrdersUseCase
+public interface IViewProccessedOrdersUseCase
 {
-
+    Task<List<Order>> ExecuteAsync(string url);
 }
