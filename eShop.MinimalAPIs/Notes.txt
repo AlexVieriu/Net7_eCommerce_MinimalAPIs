@@ -1,7 +1,14 @@
-﻿Tutorial 1: https://www.youtube.com/watch?v=f2IdQqpjR0c&ab_channel=CodewithJulian
+﻿Authentification & Minimal APIs :
+Tutorial 1: https://www.youtube.com/watch?v=f2IdQqpjR0c&ab_channel=CodewithJulian
 Tutorial 2: https://www.youtube.com/watch?v=4ORO-KOufeU
 Tutorial 1: https://www.youtube.com/watch?v=HDinmuGYaIA
 Tutorial 1: https://www.youtube.com/watch?v=uoVeZzKl6WQ
+
+Login:
+{
+	"userName": "Vieriu Alexandru",
+	"password": "portocala21@!",
+}
 
 Register:
 {
@@ -10,11 +17,17 @@ Register:
   "password": "portocala21@!",
   "userRole": "Administrator"
 }
+{
+  "userId": 0,
+  "userName": "alexv",
+  "password": "castron21",
+  "userRole": "Administrator"
+}
 
 Order:
 
 {
-  "orderId": 16,
+  "orderId": 0,
   "datePlaced": "2022-04-11T15:10:24.85",
   "dateProcessing": null,
   "dateProcessed": "2022-04-11T15:10:00",

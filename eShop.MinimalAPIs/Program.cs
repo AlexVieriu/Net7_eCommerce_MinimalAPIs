@@ -194,7 +194,6 @@ app.MapGet("/order/outstrandingsorders", async (IOrderRepository orderRepo) =>
     }
 }).Produces<List<Order>>();
 
-
 app.MapGet("/order/processed", async (IOrderRepository orderRepo) =>
 {
     try
