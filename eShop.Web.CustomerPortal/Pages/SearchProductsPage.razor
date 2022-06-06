@@ -1,10 +1,11 @@
 ﻿@page "/"
+@page "/products"
 
 @inject ISearchProductUseCase searchProduct
 
 @attribute [Authorize]
 
-<h3 class="mb-5">SearchProductsPage</h3>
+<h3 class="mb-5">Search Products</h3>
 
 <SearchBarComp OnSearch="OnFilteringProducts" />
 
@@ -21,15 +22,14 @@
 
 @code {
     List<Product> Products = new();
-    string filter = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         Products = await searchProduct.GetProducts(Endpoints.ProductUrl);
     }
 
-    private void OnFilteringProducts(string filter)
+    private async Task OnFilteringProducts(string filter)
     {
-        this.filter = filter;
+        Products = await searchProduct.GetProducts(Endpoints.ProductUrl, filter);
     }
 }

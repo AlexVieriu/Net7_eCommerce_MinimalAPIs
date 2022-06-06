@@ -11,6 +11,7 @@
                     @context?.User?.Identity?.Name
                     (@context?.User?.Claims.Where(q=> q.Type == ClaimTypes.Role).Select(s=> s.Value).FirstOrDefault()) &nbsp; 
                 </span>
+                <a class="nav-link active me-5" href="/logout">Log Out</a>
                 <CardComp />
             </div>
         </Authorized>
