@@ -70,10 +70,10 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-//Minimal APIs 
+//Minimal APIs - first approach (for scaling the api)
 //app.ConfigureApi();
 
-#region Minimal Apis
+#region Minimal Apis - secound approach(original one)
 
 // Minimal APIs - Original
 // Product

@@ -1,14 +1,15 @@
 ﻿Authentification & Minimal APIs :
 Tutorial 1: https://www.youtube.com/watch?v=f2IdQqpjR0c&ab_channel=CodewithJulian
 Tutorial 2: https://www.youtube.com/watch?v=4ORO-KOufeU
-Tutorial 1: https://www.youtube.com/watch?v=HDinmuGYaIA
-Tutorial 1: https://www.youtube.com/watch?v=uoVeZzKl6WQ
+Tutorial 3: https://www.youtube.com/watch?v=HDinmuGYaIA
+Tutorial 4: https://www.youtube.com/watch?v=uoVeZzKl6WQ
 
 Login:
 {
 	"userName": "Vieriu Alexandru",
 	"password": "portocala21@!",
 }
+
 
 Register:
 {
@@ -24,8 +25,8 @@ Register:
   "userRole": "Administrator"
 }
 
-Order:
 
+Order:
 {
   "orderId": 0,
   "datePlaced": "2022-04-11T15:10:24.85",
