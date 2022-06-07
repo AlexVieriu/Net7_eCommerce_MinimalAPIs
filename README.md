@@ -1,7 +1,7 @@
 # About The Project
 A small eCommerce Web Application with Clean Arhitecture
 
-##Tehnologies 
+## Tehnologies 
 - BackEnd       : MinimalAPIs, JWT, Dapper, Repository Pattern, SQL Server
 - FrontEnd      : Blazor      
 
