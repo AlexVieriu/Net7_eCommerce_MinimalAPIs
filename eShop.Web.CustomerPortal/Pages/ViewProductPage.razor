@@ -8,30 +8,22 @@
 
 <h3 class="my-4">View Product</h3>
 
-<div class="card p-4 mt-4 col-6 row">
-    <div class="row">
-        <div class="col">
-            <img src="@Product.ImageLink" class="card-img-top" alt="baaaaiii, unde e poza?">
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card" style="width: 50rem;">
+        <div class="text-center">
+            <img src="@Product.ImageLink" class="card-img-top w-25">
         </div>
-        <div class="col pt-5">
+        <div class="card-body">
             <h5 class="card-title">@Product.Name</h5>
-            <p class="card-text">@Product.Brand</p>
+            <p class="text-muted">@Product.Brand</p>
+            <hr />
+            <p>Price: &nbsp; <span class="text-danger">@Product.Price.ToString("c")</span></p>
+            <p class="car-text">@Product.Description</p>
         </div>
-    </div>
-    <br />
-    <p class="card-text">@Product.Description</p>
-    <hr />
-    <p class="text-danger">@Product.Price</p>
-
-    <div class="d-flex justify-content-around">
-        <a class="btn btn-primary" href="/products">
-            <span class="oi oi-media-step-backward"></span> Back To List
-        </a>
-        <button class="btn btn-secondary" @onclick="HandleAddProductToCart">
-            <span class="oi oi-plus"></span> Add Product to Cart
-        </button>
+        <a href="/" class="btn btn-primary" @onclick="HandleAddProductToCart">Add Product to Shopping Cart</a>
     </div>
 </div>
+
 
 @code {
     Product Product = new();

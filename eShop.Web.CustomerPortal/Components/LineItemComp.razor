@@ -15,7 +15,7 @@
                 <input type="number" min="0" value="@LineItem.Quantity"
                    class="form-control" @onchange="UpdateQuantity" />
                 <hr />
-                <p class="text-danger">Price: &nbsp; @LineItem.Price</p>
+                <p class="text-danger">Price: &nbsp; @LineItem.Price.ToString("c")</p>
             </div>
 
             <div class="col position-relative">
