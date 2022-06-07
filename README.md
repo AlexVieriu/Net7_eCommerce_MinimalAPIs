@@ -7,8 +7,8 @@ A small eCommerce Web Application with Clean Arhitecture
 - FrontEnd      : Blazor      
 
 ### Login
-UserName: Vieriu Alexandru
-Password: portocala21@!
+- UserName: Vieriu Alexandru
+- Password: portocala21@!
 
 ![image](https://user-images.githubusercontent.com/13439611/172293323-27a313cb-3a04-41e0-a319-1069c0f1e41e.png)
 ![image](https://user-images.githubusercontent.com/13439611/172294521-a113e059-8e0d-4857-b008-8dfa7dce8086.png)
