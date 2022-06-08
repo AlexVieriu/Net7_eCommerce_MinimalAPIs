@@ -3,7 +3,7 @@ A small eCommerce Web Application with Clean Arhitecture
 
 
 ### Tehnologies 
-- BackEnd       : MinimalAPIs, JWT, Dapper, Repository Pattern,SQL Server, Loggin(with Serilog)
+- BackEnd       : Minimal APIs, JWT, Dapper, Repository Pattern,SQL Server, Logging(with Serilog)
 - FrontEnd      : Blazor WebAssembly, LocalStorage, Observer Pattern, Authentification   
 
 ### Product Page
