@@ -10,7 +10,7 @@ public static class Api
         app.MapGet("/product", GetProductsAsync);                   // [FromQuery]
 
         // (API)
-        app.MapGet("/product/{Id:int}", GetProductByIdAsync);       // Only for API(on the FrontEnd i get the product from localhost)
+        app.MapGet("/product/{id:int}", GetProductByIdAsync);       // Only for API(on the FrontEnd i get the product from localhost)
 
         // Orders(API & UI)
         app.MapPost("/order", CreateOrderAsync);                            // [FromBody]
@@ -30,8 +30,10 @@ public static class Api
         app.MapPost("/register", Register);
     }
 
-    // Product
-    public static async Task<IResult> GetProductByIdAsync([FromRoute] int id, IProductRepository productRepo)
+    // Product    
+    public static async Task<IResult> GetProductByIdAsync([FromRoute] int id,
+                                                          IProductRepository productRepo,
+                                                          ILogger<Product> logger)
     {
         try
         {
@@ -39,10 +41,14 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetProductByIdAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
-    public static async Task<IResult> GetProductsAsync([FromQuery] string? filter, IProductRepository productRepo)
+
+    public static async Task<IResult> GetProductsAsync([FromQuery] string? filter,
+                                                       IProductRepository productRepo,
+                                                       ILogger<List<Product>> logger)
     {
         try
         {
@@ -50,12 +56,15 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetProductsAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
 
     // Order
-    public static async Task<IResult> CreateOrderAsync([FromBody] Order order, IOrderRepository orderRepo)
+    public static async Task<IResult> CreateOrderAsync([FromBody] Order order,
+                                                       IOrderRepository orderRepo,
+                                                       ILogger<int> logger)
     {
         try
         {
@@ -63,10 +72,14 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(CreateOrderAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
-    public static async Task<IResult> GetLineItemsByOrderIdAsync([FromRoute] int orderId, IOrderRepository orderRepo)
+
+    public static async Task<IResult> GetLineItemsByOrderIdAsync([FromRoute] int orderId,
+                                                                 IOrderRepository orderRepo,
+                                                                 ILogger<OrderLineItem> logger)
     {
         try
         {
@@ -74,10 +87,14 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetLineItemsByOrderIdAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
-    public static async Task<IResult> GetOrderByIdAsync([FromRoute] int orderId, IOrderRepository orderRepo)
+
+    public static async Task<IResult> GetOrderByIdAsync([FromRoute] int orderId,
+                                                        IOrderRepository orderRepo,
+                                                        ILogger<Order> logger)
     {
         try
         {
@@ -85,10 +102,14 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetOrderByIdAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
-    public static async Task<IResult> GetOrderByUniqueIdAsync([FromRoute] string uniqueId, IOrderRepository orderRepo)
+
+    public static async Task<IResult> GetOrderByUniqueIdAsync([FromRoute] string uniqueId,
+                                                              IOrderRepository orderRepo,
+                                                              ILogger<Order> logger)
     {
         try
         {
@@ -96,10 +117,12 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetOrderByUniqueIdAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
-    public static async Task<IResult> GetOrdersAsync(IOrderRepository orderRepo)
+
+    public static async Task<IResult> GetOrdersAsync(IOrderRepository orderRepo, ILogger<List<Order>> logger)
     {
         try
         {
@@ -107,12 +130,13 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetOrdersAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
 
     [Authorize(Roles = "Administrator")]
-    public static async Task<IResult> GetOutStrandingOrdersAsync(IOrderRepository orderRepo)
+    public static async Task<IResult> GetOutStrandingOrdersAsync(IOrderRepository orderRepo, ILogger<List<Order>> logger)
     {
         try
         {
@@ -120,11 +144,13 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetOutStrandingOrdersAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
+
     [Authorize(Roles = "Administrator")]
-    public static async Task<IResult> GetProccesedOrdersAsync(IOrderRepository orderRepo)
+    public static async Task<IResult> GetProccesedOrdersAsync(IOrderRepository orderRepo, ILogger<List<Order>> logger)
     {
         try
         {
@@ -132,13 +158,16 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(GetProccesedOrdersAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
+
     [Authorize(Roles = "Administrator")]
     public static async Task<IResult> UpdateOrderProcessedAsync([FromRoute] int id,
                                                                 [FromBody] Order order,
-                                                                IOrderRepository orderRepo)
+                                                                IOrderRepository orderRepo,
+                                                                ILogger<int> logger)
     {
         try
         {
@@ -150,6 +179,7 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(UpdateOrderProcessedAsync)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
@@ -159,7 +189,8 @@ public static class Api
     public static async Task<IResult> Login([FromQuery] string userName,
                                             [FromQuery] string pwd,
                                             IUserRepository userRepo,
-                                            IConfiguration config)
+                                            IConfiguration config,
+                                            ILogger<string> logger)
     {
         try
         {
@@ -174,12 +205,13 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(Login)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }
 
     [Authorize(Roles = "Administrator")]
-    public static async Task<IResult> Register([FromBody] User user, IUserRepository userRepo)
+    public static async Task<IResult> Register([FromBody] User user, IUserRepository userRepo, ILogger<string> logger)
     {
         try
         {
@@ -187,6 +219,7 @@ public static class Api
         }
         catch (Exception ex)
         {
+            logger.LogError($"Error at {nameof(Register)} - {ErrorMsg.InternalServerError500(ex)}");
             return Results.Problem($"{ex.Message} - {ex.InnerException}");
         }
     }

@@ -6,8 +6,8 @@ Tutorial 4: https://www.youtube.com/watch?v=uoVeZzKl6WQ
 
 Login:
 {
-	"userName": "Vieriu Alexandru",
-	"password": "portocala21@!",
+  "userName": "alexv",
+  "password": "castron21",
 }
 
 

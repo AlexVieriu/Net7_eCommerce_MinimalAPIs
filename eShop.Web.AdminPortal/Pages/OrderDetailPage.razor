@@ -59,7 +59,8 @@
     private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     protected override async Task OnInitializedAsync()
-    {
+    {      
+
         if (orderId > 0)
             Order = await viewOrder.ExecuteAsync(Endpoints.OrderUrl, orderId);
 
